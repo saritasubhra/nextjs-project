@@ -1,8 +1,10 @@
+"use client";
+
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import axios from "../lib/axios";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -12,8 +14,8 @@ const initialState = {
 function useLogin() {
   const [formData, setFormData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { setAuth } = useAuth();
+  const router = useRouter();
 
   function handleFormData(e) {
     setFormData((prev) => {
@@ -27,12 +29,12 @@ function useLogin() {
     try {
       setIsLoading(true);
       const res = await axios.post("/auth/login", formData);
-      toast.success(res.data.message);
-      setAuth(res.data.data);
+      toast.success(res?.data?.message);
+      setAuth(res?.data?.data);
       setFormData(initialState);
-      navigate("/");
+      router.push("/");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || "Login failed");
     } finally {
       setIsLoading(false);
     }

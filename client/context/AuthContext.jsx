@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "../lib/axios";
 
@@ -10,7 +12,7 @@ function AuthProvider({ children }) {
     async function fetchProfile() {
       try {
         const res = await axios.get("/auth/profile");
-        setAuth(res.data.data);
+        setAuth(res?.data?.data);
       } catch (error) {
         console.log(error);
       }

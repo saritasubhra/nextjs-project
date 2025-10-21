@@ -1,8 +1,10 @@
+"use client";
+
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
+import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
   fullname: "",
@@ -14,20 +16,30 @@ const initialState = {
 function useSignup() {
   const [formData, setFormData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { setAuth } = useAuth();
+  const router = useRouter();
 
   function handleFormData(e) {
     setFormData((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   }
+  function validateInputs() {
+    const { password, passwordConfirm } = formData;
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters");
+      return false;
+    }
+    if (password !== passwordConfirm) {
+      toast.error("Passwords don't match");
+      return false;
+    }
+    return true;
+  }
 
   async function handleFormSubmission(e) {
     e.preventDefault();
-
-    const success = handleInputValidation(formData);
-    if (!success) return;
+    if (!validateInputs()) return;
 
     try {
       setIsLoading(true);
@@ -35,27 +47,14 @@ function useSignup() {
       toast.success(res.data.message);
       setAuth(res.data.data);
       setFormData(initialState);
-      navigate("/");
+      router.push("/");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || "Signup failed");
     } finally {
       setIsLoading(false);
     }
   }
 
-  function handleInputValidation(formData) {
-    const { password, passwordConfirm } = formData;
-
-    if (password.length < 8) {
-      toast.error("Password must be atleast of 8 characters.");
-      return false;
-    }
-    if (password !== passwordConfirm) {
-      toast.error("Passwords do not match.");
-      return false;
-    }
-    return true;
-  }
   return { formData, isLoading, handleFormData, handleFormSubmission };
 }
 
