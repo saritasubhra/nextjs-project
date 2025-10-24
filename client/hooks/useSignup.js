@@ -11,38 +11,73 @@ const initialState = {
   email: "",
   password: "",
   passwordConfirm: "",
+  phone: "",
+  address: "",
 };
 
 function useSignup() {
   const [formData, setFormData] = useState(initialState);
-  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const { setAuth } = useAuth();
   const router = useRouter();
 
-  function handleFormData(e) {
-    setFormData((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  }
-  function validateInputs() {
-    const { password, passwordConfirm } = formData;
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters");
-      return false;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
     }
-    if (password !== passwordConfirm) {
-      toast.error("Passwords don't match");
-      return false;
-    }
-    return true;
-  }
+  };
 
-  async function handleFormSubmission(e) {
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.fullname.trim()) {
+      newErrors.fullname = "Full name is required";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    }
+    if (formData.password !== formData.passwordConfirm) {
+      newErrors.passwordConfirm = "Passwords do not match";
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ""))) {
+      newErrors.phone = "Please enter a valid 10-digit phone number";
+    }
+    if (!formData.address.trim()) {
+      newErrors.address = "Address is required";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateInputs()) return;
+    const newErrors = validateForm();
 
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setLoading(true);
     try {
-      setIsLoading(true);
       const res = await axios.post("/auth/signup", formData);
       toast.success(res.data.message);
       setAuth(res.data.data);
@@ -51,11 +86,11 @@ function useSignup() {
     } catch (error) {
       toast.error(error?.response?.data?.message || "Signup failed");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  }
+  };
 
-  return { formData, isLoading, handleFormData, handleFormSubmission };
+  return { formData, loading, errors, handleChange, handleSubmit };
 }
 
 export default useSignup;

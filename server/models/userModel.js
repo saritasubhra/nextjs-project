@@ -26,6 +26,20 @@ const userSchema = new mongoose.Schema(
       minlength: [8, "Password must have atleast 8 characters."],
       select: false,
     },
+    phone: {
+      type: String,
+      required: [true, "Phone is a required field."],
+      validate: {
+        validator: function (value) {
+          return /^[0-9]{10}$/.test(value);
+        },
+        message: "Phone number must contain exactly 10 digits (0–9 only).",
+      },
+    },
+    address: {
+      type: String,
+      required: [true, "Address is a required field."],
+    },
   },
   {
     timestamps: true,

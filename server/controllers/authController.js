@@ -17,7 +17,8 @@ const generateAndSendToken = (res, id) => {
 
 const signUp = async (req, res, next) => {
   try {
-    const { fullname, email, password, passwordConfirm } = req.body;
+    const { fullname, email, password, passwordConfirm, phone, address } =
+      req.body;
 
     if (password !== passwordConfirm) {
       return next(new AppError("Passwords don't match", 400));
@@ -27,6 +28,8 @@ const signUp = async (req, res, next) => {
       fullname,
       email,
       password,
+      phone,
+      address,
     });
 
     if (!newUser) {
@@ -82,8 +85,8 @@ const logIn = async (req, res, next) => {
 const protect = async (req, res, next) => {
   try {
     let token;
-    if (req.cookies.advancedBackend) {
-      token = req.cookies.advancedBackend; // #fff
+    if (req.cookies.sliceNow) {
+      token = req.cookies.sliceNow; // #fff
     }
 
     if (!token) {
