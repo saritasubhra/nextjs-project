@@ -8,8 +8,6 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   const [auth, setAuth] = useState(null);
 
-  console.log(auth);
-
   useEffect(() => {
     async function fetchProfile() {
       try {
