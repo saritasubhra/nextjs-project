@@ -40,7 +40,7 @@ const getPizza = async (req, res, next) => {
 
 const createPizza = async (req, res, next) => {
   try {
-    const { name, ingredients, price } = req.body;
+    const { name, ingredients, price, description } = req.body;
 
     if (!req.file) {
       return next(new AppError("Image is required", 400));
@@ -50,9 +50,10 @@ const createPizza = async (req, res, next) => {
 
     const newPizza = await Pizza.create({
       name,
-      ingredients: ingredients?.split(",").map((i) => i.trim()),
+      ingredients: ingredients.split(",").map((i) => i.trim()),
       image: imagePath,
       price,
+      description,
     });
 
     res.status(201).json({

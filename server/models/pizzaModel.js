@@ -20,6 +20,10 @@ const pizzaSchema = new mongoose.Schema(
       required: [true, "Price is required"],
       min: [0, "Price must be positive"],
     },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+    },
     isAvailable: {
       type: Boolean,
       default: true,
