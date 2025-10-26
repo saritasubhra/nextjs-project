@@ -3,6 +3,7 @@ import "./globals.css";
 import AuthProvider from "@/context/AuthContext";
 import Header from "./_components/Header";
 import { Toaster } from "react-hot-toast";
+import CartProvider from "@/context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,11 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-linear-to-b from-yellow-50 to-white`}
       >
         <AuthProvider>
-          <Header />
-          {children}
-          <Toaster />
+          <CartProvider>
+            <Header />
+            {children}
+            <Toaster />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

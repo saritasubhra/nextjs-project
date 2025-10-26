@@ -5,7 +5,7 @@ const AppError = require("../utils/appError");
 
 const getAllPizzas = async (req, res, next) => {
   try {
-    const pizzas = await Pizza.find();
+    const pizzas = await Pizza.find().select("-description");
 
     if (!pizzas || pizzas.length === 0) {
       return next(new AppError("No pizzas found", 404));

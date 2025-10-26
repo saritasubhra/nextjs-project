@@ -24,6 +24,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.route("/").get(getAllPizzas).post(upload.single("image"), createPizza);
-router.route("/:userId").get(getPizza).patch(updatePizza).delete(deletePizza);
+router.route("/:pizzaId").get(getPizza).patch(updatePizza).delete(deletePizza);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import axiosInstance from "@/lib/axios";
+import Link from "next/link";
 
 async function Home() {
   const res = await axiosInstance.get("/pizzas");
@@ -52,9 +53,11 @@ async function Home() {
                     <span className="text-2xl font-bold text-yellow-600">
                       ₹{pizza.price}
                     </span>
-                    <button className="bg-linear-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-semibold py-2 px-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
-                      See Details
-                    </button>
+                    <Link href={`/pizza/${pizza._id}`}>
+                      <button className="bg-linear-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-semibold py-2 px-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                        See Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
