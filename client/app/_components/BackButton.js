@@ -13,7 +13,7 @@ function BackButton() {
           className="text-black hover:text-yellow-900 font-semibold flex items-center space-x-2 transition"
         >
           <span>←</span>
-          <span>Back to Menu</span>
+          <span>Go Back</span>
         </button>
       </div>
     </div>

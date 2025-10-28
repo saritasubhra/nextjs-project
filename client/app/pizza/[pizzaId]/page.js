@@ -1,6 +1,7 @@
 import Image from "next/image";
 import axiosInstance from "@/lib/axios";
 import BackButton from "@/app/_components/BackButton";
+import AddToCartSection from "@/app/_components/AddToCartSection";
 
 async function Pizza({ params }) {
   const { pizzaId } = await params;
@@ -94,7 +95,7 @@ async function Pizza({ params }) {
             </div>
 
             {/* Add to Cart Section */}
-            <div className="space-y-4 pt-8 border-t-2 border-yellow-200">
+            {/* <div className="space-y-4 pt-8 border-t-2 border-yellow-200">
               <div className="flex items-center space-x-4 bg-gray-100 rounded-xl p-2 w-fit">
                 <button className="bg-white hover:bg-yellow-50 text-gray-900 font-bold px-4 py-2 rounded-lg transition">
                   −
@@ -105,21 +106,15 @@ async function Pizza({ params }) {
                 </button>
               </div>
 
-              <button
-                disabled={!pizza.isAvailable}
-                className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                  pizza.isAvailable
-                    ? "bg-linear-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white"
-                    : "bg-gray-300 text-gray-600 cursor-not-allowed"
-                }`}
-              >
-                {pizza.isAvailable ? " Add to Cart" : "Out of Stock"}
+              <button className="w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 bg-linear-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white">
+                Add to Cart
               </button>
 
               <button className="w-full py-4 rounded-xl font-bold text-lg border-2 border-yellow-400 text-yellow-600 hover:bg-yellow-50 transition">
                 Add to Favorites
               </button>
-            </div>
+            </div> */}
+            <AddToCartSection pizza={pizza} />
           </div>
         </div>
 

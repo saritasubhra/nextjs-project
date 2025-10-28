@@ -19,7 +19,7 @@ const createOrUpdateCart = async (req, res, next) => {
 
     if (cart) {
       const existingItem = cart.cartItems.find(
-        (item) => item.pizzaId.toString() === pizzaId
+        (item) => item.pizzaId._id.toString() === pizzaId
       );
 
       if (existingItem) {
@@ -35,6 +35,11 @@ const createOrUpdateCart = async (req, res, next) => {
         cartItems: [{ pizzaId, quantity: quantity || 1 }],
       });
     }
+
+    cart = await Cart.findOne({ user: userId }).populate(
+      "cartItems.pizzaId",
+      "name price images"
+    );
 
     res.status(200).json({
       status: "success",
@@ -69,10 +74,6 @@ const getUserCart = async (req, res, next) => {
     const { userId } = req.params;
     const cart = await Cart.findOne({ user: userId });
 
-    if (!cart) {
-      return next(new AppError("No cart found for this user", 404));
-    }
-
     res.status(200).json({
       status: "success",
       data: cart,
@@ -102,7 +103,8 @@ const deleteCart = async (req, res, next) => {
 
 const removeCartItem = async (req, res, next) => {
   try {
-    const { userId, pizzaId } = req.body;
+    const { userId } = req.params;
+    const { pizzaId } = req.body;
 
     if (!userId || !pizzaId) {
       return next(new AppError("userId and pizzaId are required", 400));
@@ -115,7 +117,7 @@ const removeCartItem = async (req, res, next) => {
     }
 
     const updatedItems = cart.cartItems.filter(
-      (item) => item.pizzaId.toString() !== pizzaId
+      (item) => item.pizzaId._id.toString() !== pizzaId
     );
 
     if (updatedItems.length === cart.cartItems.length) {
