@@ -71,7 +71,7 @@ function CartProvider({ children }) {
   const subtotal = cart
     ? cart.reduce(
         (sum, item) => sum + (item.pizzaId.price || 0) * item.quantity,
-        0
+        0,
       )
     : 0;
 

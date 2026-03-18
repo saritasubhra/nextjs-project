@@ -1,11 +1,13 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function AddToCartSection({ pizza }) {
   const { addOrUpdateCart } = useCart();
+  const { auth } = useAuth();
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
   return (
@@ -29,6 +31,10 @@ export default function AddToCartSection({ pizza }) {
 
       <button
         onClick={() => {
+          if (!auth) {
+            router.push("/login");
+            return;
+          }
           addOrUpdateCart(pizza?._id, quantity);
           router.push("/cart");
         }}

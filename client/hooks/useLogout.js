@@ -4,10 +4,12 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
 import { useAuth } from "../context/AuthContext";
+import { useRouter } from "next/navigation";
 
 function useLogout() {
   const { setAuth } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   async function handleLogout() {
     try {
@@ -15,6 +17,7 @@ function useLogout() {
       const res = await axios.get("/auth/logout");
       toast.success(res?.data?.message);
       setAuth(null);
+      router.push("/login");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Logout failed");
     } finally {
