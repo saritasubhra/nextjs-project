@@ -31,6 +31,10 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/pizzas", pizzaRouter);
 app.use("/api/v1/cart", cartRouter);
 
+app.get("/", (req, res) => {
+  res.json({ message: "Server is running..." });
+});
+
 app.all("*", (req, res, next) => {
   next(new AppError(`This route ${req.originalUrl} doesn't exist.`, 404));
 });
