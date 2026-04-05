@@ -13,7 +13,7 @@ export default function LoginPage() {
               Welcome Back to <span className="text-yellow-500">SliceNow</span>
             </h1>
             <p className="text-gray-600 text-center text-lg">
-              Sign in to your account and order delicious pizzas with special
+              Sign in to your account and order delicious items with special
               member discounts
             </p>
 

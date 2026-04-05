@@ -15,7 +15,7 @@ export default function Header() {
         {/* Logo and Title */}
         <div>
           <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-            🍕 SliceNow
+            SliceNow
           </h1>
           <p className="text-yellow-900 text-lg">
             Handcrafted with love, delivered fresh to your table

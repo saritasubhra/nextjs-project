@@ -10,10 +10,10 @@ export default function SignupPage() {
           <div className="hidden md:flex flex-col justify-center items-center space-y-6">
             <div className="text-6xl">🍕</div>
             <h1 className="text-4xl font-bold text-center text-gray-900">
-              Join <span className="text-yellow-500">PizzaHub</span>
+              Join <span className="text-yellow-500">SliceNow</span>
             </h1>
             <p className="text-gray-600 text-center text-lg">
-              Sign up now and get exclusive deals on delicious pizzas delivered
+              Sign up now and get exclusive deals on delicious items delivered
               to your doorstep
             </p>
             <div className="space-y-4 mt-8">
@@ -22,7 +22,7 @@ export default function SignupPage() {
                   ✓
                 </div>
                 <p className="text-gray-700 font-medium">
-                  Fresh & Handcrafted Pizzas
+                  Fresh & Handcrafted Food
                 </p>
               </div>
               <div className="flex items-center space-x-3">
@@ -49,7 +49,7 @@ export default function SignupPage() {
                 {" "}
                 Create Account
               </h2>
-              <p className="text-gray-600 mt-2">Join our pizza family today</p>
+              <p className="text-gray-600 mt-2">Join our family today</p>
             </div>
 
             <SignupForm />
