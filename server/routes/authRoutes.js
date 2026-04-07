@@ -9,6 +9,12 @@ const {
 
 const router = express.Router();
 
+// To disable caching in auth routes
+router.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  next();
+});
+
 router.post("/signup", signUp);
 router.post("/login", logIn);
 router.get("/logout", logOut);

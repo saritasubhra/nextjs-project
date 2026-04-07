@@ -16,7 +16,7 @@ export default function CartPage() {
   const tax = Math.round(subtotal * 0.05);
   const total = subtotal + deliveryFee + tax;
 
-  if (cart.length === 0) return <EmptyCart />;
+  if (cart?.length === 0) return <EmptyCart />;
 
   return (
     <main className="min-h-screen bg-linear-to-b from-yellow-50 to-white">
