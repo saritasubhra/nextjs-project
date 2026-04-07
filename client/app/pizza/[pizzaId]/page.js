@@ -20,7 +20,7 @@ async function Pizza({ params }) {
           <div className="flex flex-col space-y-4">
             <div className="relative w-full h-72 md:h-80 bg-gray-100 rounded-2xl overflow-hidden shadow-lg border-2 border-yellow-200">
               <Image
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${pizza.image}`}
+                src={`${pizza.image}`}
                 alt={pizza.name}
                 fill
                 className="object-cover hover:scale-110 transition-transform duration-300"

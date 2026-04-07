@@ -48,7 +48,7 @@ async function Home() {
                 {/* Image Container */}
                 <div className="relative w-full h-56 bg-gray-100 overflow-hidden">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${pizza.image}`}
+                    src={`${pizza.image}`}
                     alt={pizza.name}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"

@@ -38,7 +38,7 @@ export default function CartPage() {
                   {/* Image */}
                   <div className="relative w-24 h-24 bg-gray-100 rounded-lg overflow-hidden shrink-0">
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.pizzaId.image}`}
+                      src={`${item.pizzaId.image}`}
                       alt={item.pizzaId.name}
                       fill
                       className="object-cover"
@@ -51,7 +51,7 @@ export default function CartPage() {
                       {item.pizzaId.name}
                     </h3>
                     <p className="text-yellow-600 font-bold text-lg">
-                      ₹{item.pizzaId.price}
+                      {/* ₹{item.pizzaId.price} */}
                     </p>
                   </div>
 

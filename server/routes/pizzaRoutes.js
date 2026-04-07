@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path");
+// const path = require("path");
 const multer = require("multer");
 const {
   getAllPizzas,
@@ -11,15 +11,17 @@ const {
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../public/uploads"));
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, "../public/uploads"));
+//   },
+//   filename: (req, file, cb) => {
+//     const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
+//     cb(null, uniqueName);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 

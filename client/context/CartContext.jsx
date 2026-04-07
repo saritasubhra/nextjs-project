@@ -20,7 +20,7 @@ function CartProvider({ children }) {
     try {
       setLoading(true);
       const res = await axios.get(`/cart/${auth?._id}`);
-      setCart(res.data.data.cartItems);
+      setCart(res.data.data?.cartItems);
     } catch (err) {
       console.error(err);
       setCart(null);
